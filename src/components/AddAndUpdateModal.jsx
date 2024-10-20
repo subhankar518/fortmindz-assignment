@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useForm, Controller } from 'react-hook-form';
 
-const AddAndUpdateModal = ({ openUpdateModal, handleModalClose, employee , handleAddAndUpdate }) => {
+const AddAndUpdateModal = ({ openUpdateModal, handleModalClose, employee, handleAddAndUpdate }) => {
     const { handleSubmit, control, setValue } = useForm();
     const [imagePreview, setImagePreview] = useState(null);
 
@@ -19,18 +19,17 @@ const AddAndUpdateModal = ({ openUpdateModal, handleModalClose, employee , handl
         }
     }, [employee, setValue]);
 
-    const onSubmit =async (data) => {
-        const updatedEmployeeobject={
-          _id: employee?._id,
-          fullName: data?.fullName,
-          email: data?.email,
-          age: data?.age,
-          image: data?.image ? data?.image : "",
-          phone: data?.phone,
-          salary: data?.salary
-        }
-        await handleAddAndUpdate(updatedEmployeeobject)
-        
+    const onSubmit = async (data) => {
+        const updatedEmployeeObject = {
+            _id: employee?._id,
+            fullName: data?.fullName,
+            email: data?.email,
+            age: data?.age,
+            image: data?.image || '',
+            phone: data?.phone,
+            salary: data?.salary,
+        };
+        await handleAddAndUpdate(updatedEmployeeObject);
     };
 
     return (
@@ -43,12 +42,12 @@ const AddAndUpdateModal = ({ openUpdateModal, handleModalClose, employee , handl
                         className="w-24 h-24 rounded-full mx-auto"
                     />
                 </div>
-                <Modal.Title>{employee?.fullName ? `${employee?.fullName}` : 'Add Employee'}</Modal.Title>
+                <Modal.Title>{employee?.fullName ? employee.fullName : 'Add Employee'}</Modal.Title>
             </Modal.Header>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Modal.Body>
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2">Image</label>
+                        <label className="block mb-2 text-sm font-medium">Image</label>
                         <Controller
                             control={control}
                             name="image"
@@ -67,14 +66,14 @@ const AddAndUpdateModal = ({ openUpdateModal, handleModalClose, employee , handl
                                             onChange(null);
                                         }
                                     }}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded"
+                                    className="w-full px-2 py-1 border rounded"
                                 />
                             )}
                         />
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2">Full Name</label>
+                        <label className="block mb-2 text-sm font-medium">Full Name</label>
                         <Controller
                             control={control}
                             name="fullName"
@@ -85,14 +84,14 @@ const AddAndUpdateModal = ({ openUpdateModal, handleModalClose, employee , handl
                                     placeholder="Full Name"
                                     onChange={onChange}
                                     value={value || ''}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded"
+                                    className="w-full px-2 py-1 border rounded"
                                 />
                             )}
                         />
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                        <label className="block mb-2 text-sm font-medium">Email</label>
                         <Controller
                             control={control}
                             name="email"
@@ -103,14 +102,14 @@ const AddAndUpdateModal = ({ openUpdateModal, handleModalClose, employee , handl
                                     placeholder="Email"
                                     onChange={onChange}
                                     value={value || ''}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded"
+                                    className="w-full px-2 py-1 border rounded"
                                 />
                             )}
                         />
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2">Age</label>
+                        <label className="block mb-2 text-sm font-medium">Age</label>
                         <Controller
                             control={control}
                             name="age"
@@ -121,14 +120,14 @@ const AddAndUpdateModal = ({ openUpdateModal, handleModalClose, employee , handl
                                     placeholder="Age"
                                     onChange={onChange}
                                     value={value || ''}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded"
+                                    className="w-full px-2 py-1 border rounded"
                                 />
                             )}
                         />
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2">Phone No.</label>
+                        <label className="block mb-2 text-sm font-medium">Phone No.</label>
                         <Controller
                             control={control}
                             name="phone"
@@ -139,14 +138,14 @@ const AddAndUpdateModal = ({ openUpdateModal, handleModalClose, employee , handl
                                     placeholder="Phone No."
                                     onChange={onChange}
                                     value={value || ''}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded"
+                                    className="w-full px-2 py-1 border rounded"
                                 />
                             )}
                         />
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2">Salary</label>
+                        <label className="block mb-2 text-sm font-medium">Salary</label>
                         <Controller
                             control={control}
                             name="salary"
@@ -157,7 +156,7 @@ const AddAndUpdateModal = ({ openUpdateModal, handleModalClose, employee , handl
                                     placeholder="Salary"
                                     onChange={onChange}
                                     value={value || ''}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded"
+                                    className="w-full px-2 py-1 border rounded"
                                 />
                             )}
                         />

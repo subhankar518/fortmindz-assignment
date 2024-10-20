@@ -44,10 +44,10 @@ export const EmployeeList = () => {
             let response;
             if (employee._id) {
                 response = await axios.put(`${updateEmployeeUrl}${employee._id}`, employee);
-                dispatch(updateEmployee(response.data)); 
+                dispatch(updateEmployee(response.data));
             } else {
                 response = await axios.post(addNewEmployeeUrl, employee);
-                dispatch(addEmployee(response.data)); 
+                dispatch(addEmployee(response.data));
             }
             await getAllEmployee();
             handleModalClose();
@@ -59,8 +59,7 @@ export const EmployeeList = () => {
     const handleDeleteEmployee = async (employeeId) => {
         try {
             await axios.delete(`${removeEmployeeUrl}${employeeId}`);
-            dispatch(deleteEmployee(employeeId)); 
-            // await getAllEmployee();
+            dispatch(deleteEmployee(employeeId));
         } catch (error) {
             console.error('Error deleting employee:', error);
         }
@@ -73,21 +72,22 @@ export const EmployeeList = () => {
 
     useEffect(() => {
         getAllEmployee();
-    }, []); 
+    }, []);
 
     return (
         <div className="p-6">
             <h2 className="text-2xl font-bold mb-4 text-center">Employee List</h2>
-            <Button
-                variant="outlined"
-                color="primary"
-                onClick={() => addAndUpdateEmployee()}
-                className="mr-2 mb-4"
-            >
-                Add Employee
-            </Button>
+            <div className="flex justify-end mb-4">
+                <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={() => addAndUpdateEmployee()}
+                >
+                    Add Employee
+                </Button>
+            </div>
             <TableContainer component={Paper} className="shadow-md rounded-lg">
-                <Table className="min-w-full">
+                <Table>
                     <TableHead className="bg-gray-200">
                         <TableRow>
                             <TableCell className="font-semibold">Name</TableCell>
@@ -98,13 +98,13 @@ export const EmployeeList = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {employeeList.map((employee) => (
+                        {employeeList?.map((employee) => (
                             <TableRow key={employee?._id} className="hover:bg-gray-100">
-                                <TableCell className="py-2">{employee?.fullName}</TableCell>
-                                <TableCell className="py-2">{employee?.email}</TableCell>
-                                <TableCell className="py-2">{employee?.phone}</TableCell>
-                                <TableCell className="py-2">{employee?.salary}</TableCell>
-                                <TableCell className="py-2">
+                                <TableCell>{employee?.fullName}</TableCell>
+                                <TableCell>{employee?.email}</TableCell>
+                                <TableCell>{employee?.phone}</TableCell>
+                                <TableCell>{employee?.salary}</TableCell>
+                                <TableCell>
                                     <Button
                                         variant="outlined"
                                         color="primary"
